@@ -1,0 +1,11 @@
+# Changelog
+
+## v0.0.1
+
+* Initial release; Implement basic feature
+  * `ghi list`
+  * `ghi list user/repo`
+  * `ghi --open list` open notifications in browser
+  * `ghi --mark-as-read` mark notifications as read
+  * `ghi --help` show help message
+* Create project page
