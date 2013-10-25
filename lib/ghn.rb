@@ -9,12 +9,18 @@ class Ghn
   alias_method :open_browser?, :open_browser
   alias_method :mark_as_read?, :mark_as_read
 
-  def initialize(access_token)
-    @access_token = access_token
+  def initialize(token, command, options)
+    @token = token
+    @command = command
+    @options = options
+  end
+
+  def run
+    send(@command.command, *@command.args)
   end
 
   def client
-    @client ||= Github.new(oauth_token: @access_token)
+    @client ||= Github.new(oauth_token: @token.token)
   end
 
   def list(target = nil)

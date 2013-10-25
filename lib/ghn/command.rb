@@ -4,6 +4,9 @@ class Ghn
       ['list']
     end
 
+    attr_reader :command
+    attr_reader :args
+
     def initialize(argv)
       @argv = argv
       @valid = false
@@ -14,6 +17,7 @@ class Ghn
       @command = @argv.first
       if self.class.commands.include?(@command)
         @valid = true
+        @args = @argv.drop(1)
       else
         @valid = false
       end

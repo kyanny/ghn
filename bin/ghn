@@ -8,10 +8,7 @@ unless token.valid?
   token.print_no_access_token_exit!
 end
 
-ghn = Ghn.new(token)
-
 options = Ghn::Options.new(ARGV.getopts(Ghn::Options.short_options, *Ghn::Options.long_options))
-
 if options.open_browser?
   options.mark_as_read = false
 end
@@ -21,6 +18,9 @@ unless command.valid?
   command.print_invalid
   Ghn::Options.print_usage_exit
 end
+
+ghn = Ghn.new(token, command, options)
+ghn.run
 
 ghn.send(*ARGV).each do |notification|
   if ghn.open_browser?
