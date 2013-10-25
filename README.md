@@ -1,6 +1,6 @@
 # Ghn
 
-[![Build Status](https://travis-ci.org/kyanny/ghn.png?branch=master)](https://travis-ci.org/kyanny/ghn) [![Coverage Status](https://coveralls.io/repos/kyanny/ghn/badge.png?branch=master)](https://coveralls.io/r/kyanny/ghn?branch=master) [![Code Climate](https://codeclimate.com/github/kyanny/ghn.png)](https://codeclimate.com/github/kyanny/ghn)
+[![Build Status](https://travis-ci.org/kyanny/ghn.png?branch=master)](https://travis-ci.org/kyanny/ghn) [![Coverage Status](https://coveralls.io/repos/kyanny/ghn/badge.png?branch=master)](https://coveralls.io/r/kyanny/ghn?branch=master) [![Code Climate](https://codeclimate.com/repos/526ade18c7f3a32c9704ea51/badges/23a96bd170e0a9cee203/gpa.png)](https://codeclimate.com/repos/526ade18c7f3a32c9704ea51/feed)
 
 Commandline tool for GitHub notifications.
 
