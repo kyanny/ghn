@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.0.2
+
+* 1st Refactor
+  * Refactor command and options processing
+  * Separate classes by its responsibility
+  * Add first tests
+
 ## v0.0.1
 
 * Initial release; Implement basic feature
