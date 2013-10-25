@@ -24,18 +24,19 @@ class Ghn
 
     class << self
       def short_options
-        'omnh'
+        'omh'
       end
 
       def long_options
-        ['open', 'mark-as-read']
+        ['open', 'mark-as-read', 'help', 'usage']
       end
 
       def usage
         <<-USAGE
 Usage: #{File.basename $0} [options] [command] [user/repo]
-    options:   --open           Open notifications in browser
-               --mark-as-read   Mark as read listed notifications
+    options:   -o, --open           Open notifications in browser
+               -m, --mark-as-read   Mark as read listed notifications
+               -h, --help, --usage  Show this message
 
     command:   list             List unread notifications
 
