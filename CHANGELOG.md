@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.3
+
+* Bugfix
+  * Add missing option `--usage`
+
 ## v0.0.2
 
 * 1st Refactor
