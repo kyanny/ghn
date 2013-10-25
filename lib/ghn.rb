@@ -1,4 +1,5 @@
-require "ghn/version"
+require 'ghn/version'
+require 'ghn/options'
 require 'github_api'
 
 class Ghn

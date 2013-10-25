@@ -10,37 +10,20 @@ Please set ghn.token to your .gitconfig.
     $ git config --global ghn.token [Your GitHub access token]
 EOM
 
-usage = <<USAGE
-Usage: #{File.basename $0} [options] [command] [user/repo]
-    options:   --open           Open notifications in browser
-               --mark-as-read   Mark as read listed notifications
-
-    command:   list             List unread notifications
-
-    user/repo: GitHub user and repository (e.g. github/hubot)
-               You can specify it to narrow down target notifications
-
-USAGE
-
 access_token = ENV['ACCESS_TOKEN'] || `git config ghn.token`.chomp
 if access_token.nil? || access_token.empty?
   puts auth_error_message; exit!
 end
 ghn = Ghn.new(access_token)
 
-opts = OptionParser.new
-opts.on('--open', 'Open notifications in browser') { |v| ghn.open_browser = true }
-opts.on('--mark-as-read', 'Mark as read notifications') { |v| ghn.mark_as_read = true }
-opts.on('-h', '--help') { puts usage; exit }
-opts.on('--usage') { puts usage; exit}
-opts.parse!
+options = Ghn::Options.new(ARGV.getopts(Ghn::Options.short_options, *Ghn::Options.long_options))
 
-if ghn.open_browser?
-  ghn.mark_as_read = false
+if options.open_browser?
+  options.mark_as_read = false
 end
 
 if ARGV.first != 'list'
-  puts usage; exit
+  puts Ghn::Options.print_usage_exit
 end
 
 ghn.send(*ARGV).each do |notification|
