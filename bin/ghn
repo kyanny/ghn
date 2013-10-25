@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.join(__dir__, '..', 'lib')
+require 'ghn'
+require 'optparse'
+
+auth_error_message = <<EOM
+Authorization required.
+
+Please set ghn.token to your .gitconfig.
+    $ git config --global ghn.token [Your GitHub access token]
+EOM
+
+usage = <<USAGE
+Usage: #{File.basename $0} [options] [command] [user/repo]
+    options:   --open           Open notifications in browser
+               --mark-as-read   Mark as read listed notifications
+
+    command:   list             List unread notifications
+
+    user/repo: GitHub user and repository (e.g. github/hubot)
+               You can specify it to narrow down target notifications
+
+USAGE
+
+access_token = ENV['ACCESS_TOKEN'] || `git config ghn.token`.chomp
+if access_token.nil? || access_token.empty?
+  puts auth_error_message; exit!
+end
+ghn = Ghn.new(access_token)
+
+opts = OptionParser.new
+opts.on('--open', 'Open notifications in browser') { |v| ghn.open_browser = true }
+opts.on('--mark-as-read', 'Mark as read notifications') { |v| ghn.mark_as_read = true }
+opts.on('-h', '--help') { puts usage; exit }
+opts.on('--usage') { puts usage; exit}
+opts.parse!
+
+if ghn.open_browser?
+  ghn.mark_as_read = false
+end
+
+if ARGV.first != 'list'
+  puts usage; exit
+end
+
+ghn.send(*ARGV).each do |notification|
+  if ghn.open_browser?
+    system "open #{notification}"
+  else
+    puts notification
+  end
+end
