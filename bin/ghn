@@ -3,18 +3,12 @@ $LOAD_PATH << File.join(__dir__, '..', 'lib')
 require 'ghn'
 require 'optparse'
 
-auth_error_message = <<EOM
-Authorization required.
-
-Please set ghn.token to your .gitconfig.
-    $ git config --global ghn.token [Your GitHub access token]
-EOM
-
-access_token = ENV['ACCESS_TOKEN'] || `git config ghn.token`.chomp
-if access_token.nil? || access_token.empty?
-  puts auth_error_message; exit!
+token = Ghn::Token.new
+unless token.valid?
+  token.print_no_access_token_exit!
 end
-ghn = Ghn.new(access_token)
+
+ghn = Ghn.new(token)
 
 options = Ghn::Options.new(ARGV.getopts(Ghn::Options.short_options, *Ghn::Options.long_options))
 

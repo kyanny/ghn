@@ -1,4 +1,5 @@
 require 'ghn/version'
+require 'ghn/token'
 require 'ghn/options'
 require 'ghn/command'
 require 'github_api'
