@@ -22,8 +22,10 @@ if options.open_browser?
   options.mark_as_read = false
 end
 
-if ARGV.first != 'list'
-  puts Ghn::Options.print_usage_exit
+command = Ghn::Command.new(ARGV)
+unless command.valid?
+  command.print_invalid
+  Ghn::Options.print_usage_exit
 end
 
 ghn.send(*ARGV).each do |notification|

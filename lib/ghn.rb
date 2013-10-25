@@ -1,5 +1,6 @@
 require 'ghn/version'
 require 'ghn/options'
+require 'ghn/command'
 require 'github_api'
 
 class Ghn
