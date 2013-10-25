@@ -5,10 +5,6 @@ require 'ghn/command'
 require 'github_api'
 
 class Ghn
-  attr_accessor :open_browser, :mark_as_read
-  alias_method :open_browser?, :open_browser
-  alias_method :mark_as_read?, :mark_as_read
-
   def initialize(token, command, options)
     @token = token
     @command = command
@@ -17,6 +13,16 @@ class Ghn
 
   def run
     send(@command.command, *@command.args)
+  end
+
+  def run_print
+    run.each do |notification|
+      if @options.open_browser?
+        system "open #{notification}"
+      else
+        puts notification
+      end
+    end
   end
 
   def client
@@ -36,7 +42,7 @@ class Ghn
                      else
                        ['issues', notification.subject.url.match(/[^\/]+\z/).to_a.first]
                      end
-      if mark_as_read?
+      if @options.mark_as_read?
         self.mark(notification.id)
         "[x] https://github.com/#{repo}/#{type}/#{number}"
       else

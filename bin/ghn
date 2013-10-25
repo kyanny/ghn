@@ -20,12 +20,4 @@ unless command.valid?
 end
 
 ghn = Ghn.new(token, command, options)
-ghn.run
-
-ghn.send(*ARGV).each do |notification|
-  if ghn.open_browser?
-    system "open #{notification}"
-  else
-    puts notification
-  end
-end
+ghn.run_print
