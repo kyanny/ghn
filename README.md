@@ -1,24 +1,30 @@
 # Ghn
 
-TODO: Write a gem description
+Commandline tool for GitHub notifications.
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'ghn'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install ghn
 
 ## Usage
 
-TODO: Write usage instructions here
+Run `ghn list` to show all unread notifications in terminal.
+
+`ghn list` takes argument `user/repo` to get notifications only target repository.
+
+If you give `--open` option, unread notifications are opened in your default browser.
+
+If you give `--mark-as-read` option, notifications are marked as read.
+
+You can see usage by `-h`, `--help` or `--usage` option.
+
+## Authentication
+
+Please set ghn.token to your .gitconfig.
+
+    $ git config --global ghn.token [Your GitHub access token]
+
+You can also set access token via ACCESS_TOKEN environment variable.
 
 ## Contributing
 
