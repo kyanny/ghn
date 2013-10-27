@@ -28,6 +28,9 @@ class Ghn
 Please set ghn.token to your .gitconfig.
     $ git config --global ghn.token [Your GitHub access token]
 
+To get new token, visit
+https://github.com/settings/tokens/new
+
 MESSAGE
     end
 
