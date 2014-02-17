@@ -37,11 +37,8 @@ class Ghn
 
     client.activity.notifications.list(params).map { |notification|
       repo = notification.repository.full_name
-      type, number = if notification.subject.url.match(/pulls/)
-                       ['pull', notification.subject.url.match(/[^\/]+\z/).to_a.first]
-                     else
-                       ['issues', notification.subject.url.match(/[^\/]+\z/).to_a.first]
-                     end
+      type = notification_type(notification.subject.url)
+      number = notification.subject.url.match(/[^\/]+\z/).to_a.first
       if @options.mark_as_read?
         self.mark(notification.id)
         "[x] https://github.com/#{repo}/#{type}/#{number}"
@@ -53,5 +50,17 @@ class Ghn
 
   def mark(id, read = true)
     client.activity.notifications.mark(thread_id: id, read: read)
+  end
+
+  private
+  def notification_type(url)
+    case url
+    when /pulls/
+      'pull'
+    when /issues/
+      'issues'
+    else
+      'commit'
+    end
   end
 end
