@@ -39,8 +39,10 @@ class Ghn
       repo = notification.repository.full_name
       type, number = if notification.subject.url.match(/pulls/)
                        ['pull', notification.subject.url.match(/[^\/]+\z/).to_a.first]
-                     else
+                     elsif notification.subject.url.match(/issues/)
                        ['issues', notification.subject.url.match(/[^\/]+\z/).to_a.first]
+                     else
+                       ['commit', notification.subject.url.match(/[^\/]+\z/).to_a.first]
                      end
       if @options.mark_as_read?
         self.mark(notification.id)
