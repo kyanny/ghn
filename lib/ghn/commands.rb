@@ -1,14 +1,16 @@
 class Ghn
   class Commands < Thor
-    class_option :all, type: :boolean, aliases: '-a', desc: 'Process all unread notifications (without pagination)'
+    class_option :all, type: :boolean, aliases: '-a', desc: 'List/Open all unread notifications'
 
-    desc 'list REPO_FULL_NAME', 'List all unread notifications'
-    def list(repo_full_name = nil)
+    desc 'list NAME', 'List unread notifications'
+    def list(name = nil)
+      repo_full_name = aliases.find(name) || name
       puts collect(repo_full_name)
     end
 
-    desc 'open REPO_FULL_NAME', 'Open all unread notifications in browser'
-    def open(repo_full_name = nil)
+    desc 'open NAME', 'Open unread notifications in browser'
+    def open(name = nil)
+      repo_full_name = aliases.find(name) || name
       collect(repo_full_name).each do |url|
         system "open #{url}"
       end
@@ -32,6 +34,10 @@ class Ghn
 
     def client
       @client ||= Octokit::Client.new(access_token: access_token)
+    end
+
+    def aliases
+      @aliases ||= Aliases.new
     end
 
     def access_token

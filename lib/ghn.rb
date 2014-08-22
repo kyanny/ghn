@@ -1,5 +1,6 @@
 require 'octokit'
 require 'ghn/version'
+require 'ghn/aliases'
 require 'ghn/commands'
 require 'ghn/collector'
 require 'ghn/notification'
