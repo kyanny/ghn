@@ -1,32 +1,54 @@
 # Ghn
 
-[![Build Status](https://travis-ci.org/kyanny/ghn.png?branch=master)](https://travis-ci.org/kyanny/ghn) [![Coverage Status](https://coveralls.io/repos/kyanny/ghn/badge.png?branch=master)](https://coveralls.io/r/kyanny/ghn?branch=master) [![Code Climate](https://codeclimate.com/repos/526ade18c7f3a32c9704ea51/badges/23a96bd170e0a9cee203/gpa.png)](https://codeclimate.com/repos/526ade18c7f3a32c9704ea51/feed)
+[![Build Status](https://travis-ci.org/kyanny/ghn.png?branch=master)](https://travis-ci.org/kyanny/ghn)
 
-Commandline tool for GitHub notifications.
+List/Open unread GitHub Notifications.
 
 ## Installation
 
-    $ gem install ghn
+```
+$ gem install ghn
+```
 
 ## Usage
 
-Run `ghn list` to show all unread notifications in terminal.
+```
+$ ghn help
+Commands:
+  ghn help [COMMAND]  # Describe available commands or one specific command
+  ghn list NAME       # List unread notifications
+  ghn open NAME       # Open unread notifications in browser
 
-`ghn list` takes argument `user/repo` to get notifications only target repository.
+Options:
+  -a, [--all], [--no-all]  # List/Open all unread notifications
+```
 
-If you give `--open` option, unread notifications are opened in your default browser.
+NAME should be a username/reponame of repository.
 
-If you give `--mark-as-read` option, notifications are marked as read.
+`$ ghn list` displays first 50 unread notifications to STDOUT.
 
-You can see usage by `-h`, `--help` or `--usage` option.
+`$ ghn open rails/rails` opens first 50 unread notifications of rails/rails in your browser.
+
+`$ ghn open -a` opens all unread notifications in your browser.
+
+## Aliases
+
+You can set aliases as a shortcut of NAME.
+Aliases should be stored to your global `.gitconfig` file.
+
+`$ git config --global ghn.alias.play playframework/playframework`
+
+Now `$ ghn open play` opens unread notifications of playframework/playframework in your browser.
+
+NOTE: aliases must have **ghn.alias** namespace.
 
 ## Authentication
 
-Please set ghn.token to your .gitconfig.
+Please set **ghn.token** to your `.gitconfig`.
 
     $ git config --global ghn.token [Your GitHub access token]
 
-You can also set access token via ACCESS_TOKEN environment variable.
+You can also set access token via `GHN_ACCESS_TOKEN` environment variable.
 
 ## Contributing
 
