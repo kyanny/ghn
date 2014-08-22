@@ -1,23 +1,5 @@
 #!/usr/bin/env ruby
-$LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
+require 'thor'
 require 'ghn'
-require 'optparse'
 
-token = Ghn::Token.new
-unless token.valid?
-  token.print_no_access_token_exit!
-end
-
-options = Ghn::Options.new(ARGV.getopts(Ghn::Options.short_options, *Ghn::Options.long_options))
-if options.open_browser?
-  options.mark_as_read = false
-end
-
-command = Ghn::Command.new(ARGV)
-unless command.valid?
-  command.print_invalid
-  Ghn::Options.print_usage_exit
-end
-
-ghn = Ghn.new(token, command, options)
-ghn.run_print
+Ghn::Commands.start
