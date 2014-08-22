@@ -1,19 +1,14 @@
 require 'rspec'
+require 'thor'
+require 'ghn'
+require 'json'
 
-require 'simplecov'
-require 'coveralls'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-]
-SimpleCov.start do
-  add_filter '.bundle/'
+module Helper
+  def fixture(name)
+    JSON.parse(File.read(File.join(__dir__, 'fixtures', name)), symbolize_names: true)
+  end
 end
 
-require 'securerandom'
-
-require 'ghn'
-
 RSpec.configure do |config|
+  config.include Helper
 end
