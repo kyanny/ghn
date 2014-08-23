@@ -5,7 +5,7 @@ require 'json'
 
 module Helper
   def fixture(name)
-    JSON.parse(File.read(File.join(__dir__, 'fixtures', name)), symbolize_names: true)
+    JSON.parse(File.read(File.join(File.dirname(__FILE__), 'fixtures', name)), symbolize_names: true)
   end
 end
 
