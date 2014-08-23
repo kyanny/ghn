@@ -39,5 +39,22 @@ describe Ghn::Notification do
 
       it { expect(subject.to_url).to eq 'https://github.com/username/reponame/commit/6a4a135335acef4dfe15912d231429c07d4ad143#issuecomment-7491006' }
     end
+
+    # TODO: Release type JSON is unknown
+    context 'release' do
+      subject { Ghn::Notification.new fixture('release.json') }
+
+      it "does not raise error" do
+        expect(subject.to_url).to be nil
+      end
+    end
+
+    context 'unknown' do
+      subject { Ghn::Notification.new fixture('unknown.json') }
+
+      it "does not raise error" do
+        expect(subject.to_url).to be nil
+      end
+    end
   end
 end
