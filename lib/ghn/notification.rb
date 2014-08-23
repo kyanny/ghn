@@ -33,6 +33,8 @@ class Ghn
         'pull'
       when 'Commit'
         'commit'
+      when 'Release'
+        'releases'
       else
         raise RuntimeError, "unknown subject type #{notification[:subject][:type]}"
       end
