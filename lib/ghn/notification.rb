@@ -7,7 +7,9 @@ class Ghn
     end
 
     def to_url
-      if comment?
+      if type.nil?
+        warn "unknown subject type #{notification[:subject][:type]}"
+      elsif comment?
         "https://github.com/#{repo_full_name}/#{type}/#{thread_number}#issuecomment-#{comment_number}"
       else
         "https://github.com/#{repo_full_name}/#{type}/#{thread_number}"
@@ -24,7 +26,6 @@ class Ghn
       notification[:repository][:full_name]
     end
 
-    # https://github.com/quipper/qlink/commit/6a4a135335acef4dfe15912d231429c07d4ad143
     def type
       case notification[:subject][:type]
       when 'Issue'
@@ -34,7 +35,7 @@ class Ghn
       when 'Commit'
         'commit'
       else
-        raise RuntimeError, "unknown subject type #{notification[:subject][:type]}"
+        nil
       end
     end
 
