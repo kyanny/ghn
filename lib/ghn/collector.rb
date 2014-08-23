@@ -14,7 +14,7 @@ class Ghn
       @count = notifications.count
       notifications.map { |notification|
         Notification.new(notification).to_url
-      }
+      }.compact
     end
 
     def has_next?
