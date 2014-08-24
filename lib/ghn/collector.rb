@@ -13,7 +13,7 @@ class Ghn
                       end
       @count = notifications.count
       notifications.map { |notification|
-        Notification.new(notification).to_url
+        Notification.new(notification).type_class.new(notification).url
       }.compact
     end
 
