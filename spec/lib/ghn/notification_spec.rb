@@ -44,8 +44,8 @@ describe Ghn::Notification do
     context 'release' do
       subject { Ghn::Notification.new fixture('release.json') }
 
-      it "does not raise error" do
-        expect(subject.to_url).to be nil
+      it "returns release tag URL" do
+        expect(subject.to_url).to eq 'https://github.com/yandod/candycane/releases/tag/v0.9.4'
       end
     end
 
