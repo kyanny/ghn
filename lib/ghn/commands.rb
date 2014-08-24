@@ -12,7 +12,7 @@ class Ghn
     def open(name = nil)
       repo_full_name = aliases.find(name) || name
       collect(repo_full_name).each do |url|
-        system "open #{url}"
+        system "#{open_command} #{url}"
       end
     end
 
@@ -59,6 +59,18 @@ https://github.com/settings/tokens/new
 
 MESSAGE
           exit!
+        end
+    end
+
+    def open_command
+      @open_command ||=
+        case RbConfig::CONFIG['host_os']
+        when /darwin/
+          'open'
+        when /linux|bsd/
+          'xdg-open'
+        when /mswin|mingw|cygwin/
+          'start'
         end
     end
   end
