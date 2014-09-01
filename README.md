@@ -50,6 +50,17 @@ Please set **ghn.token** to your `.gitconfig`.
 
 You can also set access token via `GHN_ACCESS_TOKEN` environment variable.
 
+## Follow issuecomment anchor
+
+If you provide `--follow-issuecomment` option, or set git config `ghn.followissuecomment` to "yes", "on" or "true",
+ghn follows #issuecomment- anchor URL as like GitHub's official notification link.
+
+    $ ghn open --follow-issuecomment
+
+    $ git config --global ghn.followissuecomment true
+
+Commandline option overrides git config setting as well.
+
 ## Contributing
 
 1. Fork it
