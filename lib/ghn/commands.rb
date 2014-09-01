@@ -1,6 +1,7 @@
 class Ghn
   class Commands < Thor
     class_option :all, type: :boolean, aliases: '-a', desc: 'List/Open all unread notifications'
+    class_option :follow_issuecomment, type: :boolean, desc: 'Follow issuecomment anchor URL'
 
     desc 'list NAME', 'List unread notifications'
     def list(name = nil)
@@ -20,7 +21,7 @@ class Ghn
 
     def collect(repo_full_name = nil)
       threads = []
-      collector = Collector.new(client, repo_full_name)
+      collector = Collector.new(client, repo_full_name, follow_issuecomment?)
       # Unfortunately, GitHub v3 Notifications API doesn't accept octokit's auto_paginate option
       # because this API doesn't return Link header so far.
       loop.with_index(1) do |_, page|
@@ -38,6 +39,17 @@ class Ghn
 
     def aliases
       @aliases ||= Aliases.new
+    end
+
+    def follow_issuecomment?
+      val = (options['follow_issuecomment'] || `git config ghn.followissuecomment`.chomp).to_s
+      if val.empty?
+        false
+      elsif val.match(/off|no|false/i)
+        false
+      else
+        true
+      end
     end
 
     def access_token
