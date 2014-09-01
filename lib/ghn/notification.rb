@@ -1,9 +1,10 @@
 class Ghn
   class Notification
-    attr_reader :notification
+    attr_reader :notification, :follow_issuecomment
 
-    def initialize(notification)
+    def initialize(notification, follow_issuecomment)
       @notification = notification
+      @follow_issuecomment = follow_issuecomment
     end
 
     def type_class
@@ -14,7 +15,7 @@ class Ghn
     end
 
     def url
-      if comment?
+      if follow_issuecomment && comment?
         "https://github.com/#{repo_full_name}/#{type}/#{thread_number}#issuecomment-#{comment_number}"
       else
         "https://github.com/#{repo_full_name}/#{type}/#{thread_number}"
