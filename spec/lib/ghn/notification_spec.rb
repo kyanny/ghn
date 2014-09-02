@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Ghn::Notification do
   describe '#type_class' do
-    subject { Ghn::Notification.new(notification).type_class }
+    let(:follow_issuecomment) { false }
+
+    subject { Ghn::Notification.new(notification, follow_issuecomment).type_class }
 
     context 'issue' do
       let(:notification) { fixture('issue.json') }
@@ -39,15 +41,23 @@ describe Ghn::Notification do
     describe '#url' do
       it do
         expect(
-          Ghn::IssueNotification.new(fixture('issue.json')).url
+          Ghn::IssueNotification.new(fixture('issue.json'), false).url
         ).to eq 'https://github.com/username/reponame/issues/305'
       end
 
-      context 'with comment' do
+      context 'with comment and --follow-issuecomment is turned on' do
         it do
           expect(
-            Ghn::IssueNotification.new(fixture('issue_with_comment.json')).url
+            Ghn::IssueNotification.new(fixture('issue_with_comment.json'), true).url
           ).to eq 'https://github.com/username/reponame/issues/305#issuecomment-53070200'
+        end
+      end
+
+      context 'with comment but --follow-issuecomment is turned off' do
+        it do
+          expect(
+            Ghn::IssueNotification.new(fixture('issue_with_comment.json'), false).url
+          ).to eq 'https://github.com/username/reponame/issues/305'
         end
       end
     end
@@ -57,15 +67,23 @@ describe Ghn::Notification do
     describe '#url' do
       it do
         expect(
-          Ghn::PullRequestNotification.new(fixture('pull_request.json')).url
+          Ghn::PullRequestNotification.new(fixture('pull_request.json'), false).url
         ).to eq 'https://github.com/username/reponame/pull/22'
       end
 
-      context 'with comment' do
+      context 'with comment and --follow-issuecomment is turned on' do
         it do
           expect(
-            Ghn::PullRequestNotification.new(fixture('pull_request_with_comment.json')).url
+            Ghn::PullRequestNotification.new(fixture('pull_request_with_comment.json'), true).url
           ).to eq 'https://github.com/username/reponame/pull/22#issuecomment-16607215'
+        end
+      end
+
+      context 'with comment but --follow-issuecomment is turned off' do
+        it do
+          expect(
+            Ghn::PullRequestNotification.new(fixture('pull_request_with_comment.json'), false).url
+          ).to eq 'https://github.com/username/reponame/pull/22'
         end
       end
     end
@@ -75,15 +93,23 @@ describe Ghn::Notification do
     describe '#url' do
       it do
         expect(
-          Ghn::CommitNotification.new(fixture('commit.json')).url
+          Ghn::CommitNotification.new(fixture('commit.json'), false).url
         ).to eq 'https://github.com/username/reponame/commit/6a4a135335acef4dfe15912d231429c07d4ad143'
       end
 
-      context 'with comment' do
+      context 'with comment and --follow-issuecomment is turned on' do
         it do
           expect(
-            Ghn::CommitNotification.new(fixture('commit_with_comment.json')).url
+            Ghn::CommitNotification.new(fixture('commit_with_comment.json'), true).url
           ).to eq 'https://github.com/username/reponame/commit/6a4a135335acef4dfe15912d231429c07d4ad143#issuecomment-7491006'
+        end
+      end
+
+      context 'with comment but --follow-issuecomment is turned off' do
+        it do
+          expect(
+            Ghn::CommitNotification.new(fixture('commit_with_comment.json'), false).url
+          ).to eq 'https://github.com/username/reponame/commit/6a4a135335acef4dfe15912d231429c07d4ad143'
         end
       end
     end
@@ -93,7 +119,7 @@ describe Ghn::Notification do
     describe '#url' do
       it do
         expect(
-          Ghn::ReleaseNotification.new(fixture('release.json')).url
+          Ghn::ReleaseNotification.new(fixture('release.json'), false).url
         ).to eq 'https://github.com/yandod/candycane/releases/tag/v0.9.4'
       end
     end
@@ -103,7 +129,7 @@ describe Ghn::Notification do
     describe '#url' do
       it do
         expect(
-          Ghn::UnknownNotification.new(fixture('release.json')).url
+          Ghn::UnknownNotification.new(fixture('release.json'), false).url
         ).to be nil
       end
     end
