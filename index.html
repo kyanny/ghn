@@ -4,9 +4,9 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -19,11 +19,12 @@
 
         <header>
           <h1>Ghn</h1>
-          <h2>Commandline tool for GitHub notifications.</h2>
+          <h2>List/Open unread GitHub Notifications.</h2>
         </header>
 
         <section id="downloads" class="clearfix">
-          <a href="http://rubygems.org/gems/ghn" id="view-on-rubygems-org" class="button"><span>RubyGems.org</span></a>
+          <a href="https://github.com/kyanny/ghn/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/kyanny/ghn/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
           <a href="https://github.com/kyanny/ghn" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
@@ -33,7 +34,9 @@
           <h1>
 <a name="ghn" class="anchor" href="#ghn"><span class="octicon octicon-link"></span></a>Ghn</h1>
 
-<p>Commandline tool for GitHub notifications.</p>
+<p><a href="https://travis-ci.org/kyanny/ghn"><img src="https://travis-ci.org/kyanny/ghn.png?branch=master" alt="Build Status"></a></p>
+
+<p>List/Open unread GitHub Notifications.</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -44,25 +47,58 @@
 <h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Run <code>ghn list</code> to show all unread notifications in terminal.</p>
+<pre><code>$ ghn help
+Commands:
+  ghn help [COMMAND]  # Describe available commands or one specific command
+  ghn list NAME       # List unread notifications
+  ghn open NAME       # Open unread notifications in browser
 
-<p><code>ghn list</code> takes argument <code>user/repo</code> to get notifications only target repository.</p>
+Options:
+  -a, [--all], [--no-all]  # List/Open all unread notifications
+</code></pre>
 
-<p>If you give <code>--open</code> option, unread notifications are opened in your default browser.</p>
+<p>NAME should be a username/reponame of repository.</p>
 
-<p>If you give <code>--mark-as-read</code> option, notifications are marked as read.</p>
+<p><code>$ ghn list</code> displays first 50 unread notifications to STDOUT.</p>
 
-<p>You can see usage by <code>-h</code>, <code>--help</code> or <code>--usage</code> option.</p>
+<p><code>$ ghn open rails/rails</code> opens first 50 unread notifications of rails/rails in your browser.</p>
+
+<p><code>$ ghn open -a</code> opens all unread notifications in your browser.</p>
+
+<h2>
+<a name="aliases" class="anchor" href="#aliases"><span class="octicon octicon-link"></span></a>Aliases</h2>
+
+<p>You can set aliases as a shortcut of NAME.
+Aliases should be stored to your global <code>.gitconfig</code> file.</p>
+
+<p><code>$ git config --global ghn.alias.play playframework/playframework</code></p>
+
+<p>Now <code>$ ghn open play</code> opens unread notifications of playframework/playframework in your browser.</p>
+
+<p>NOTE: aliases must have <strong>ghn.alias</strong> namespace.</p>
 
 <h2>
 <a name="authentication" class="anchor" href="#authentication"><span class="octicon octicon-link"></span></a>Authentication</h2>
 
-<p>Please set ghn.token to your .gitconfig.</p>
+<p>Please set <strong>ghn.token</strong> to your <code>.gitconfig</code>.</p>
 
 <pre><code>$ git config --global ghn.token [Your GitHub access token]
 </code></pre>
 
-<p>You can also set access token via ACCESS_TOKEN environment variable.</p>
+<p>You can also set access token via <code>GHN_ACCESS_TOKEN</code> environment variable.</p>
+
+<h2>
+<a name="follow-issuecomment-anchor" class="anchor" href="#follow-issuecomment-anchor"><span class="octicon octicon-link"></span></a>Follow issuecomment anchor</h2>
+
+<p>If you provide <code>--follow-issuecomment</code> option, or set git config <code>ghn.followissuecomment</code> to "yes", "on" or "true",
+ghn follows #issuecomment- anchor URL as like GitHub's official notification link.</p>
+
+<pre><code>$ ghn open --follow-issuecomment
+
+$ git config --global ghn.followissuecomment true
+</code></pre>
+
+<p>Commandline option overrides git config setting as well.</p>
 
 <h2>
 <a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
