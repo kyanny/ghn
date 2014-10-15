@@ -20,7 +20,9 @@ Commands:
   ghn open NAME       # Open unread notifications in browser
 
 Options:
-  -a, [--all], [--no-all]  # List/Open all unread notifications
+  -a, [--all], [--no-all]                                  # List/Open all unread notifications
+  -p, [--participating], [--no-participating]              # List/Open notifications your are participating
+      [--follow-issuecomment], [--no-follow-issuecomment]  # Follow issuecomment anchor URL
 ```
 
 NAME should be a username/reponame of repository.
@@ -30,6 +32,8 @@ NAME should be a username/reponame of repository.
 `$ ghn open rails/rails` opens first 50 unread notifications of rails/rails in your browser.
 
 `$ ghn open -a` opens all unread notifications in your browser.
+
+`$ ghn open -p` opens notifications your are participating only.
 
 ## Aliases
 
