@@ -68,7 +68,7 @@
     },
     "subject": {
         "latest_comment_url": "https://api.github.com/repos/yandod/candycane/releases/510313",
-        "title": "CandyCane v0.9.4",
+        "title": "Release v2.0.0: add `-p` option",
         "type": "Release",
         "url": "https://api.github.com/repos/yandod/candycane/releases/510313"
     },
