@@ -117,10 +117,15 @@ describe Ghn::Notification do
 
   describe Ghn::ReleaseNotification do
     describe '#url' do
+      before do
+        allow(Net::HTTP).
+          to receive(:get).and_return '{"html_url":"https://github.com/yandod/candycane/releases/tag/v2.1.0"}'
+      end
+
       it do
         expect(
           Ghn::ReleaseNotification.new(fixture('release.json'), false).url
-        ).to eq 'https://github.com/yandod/candycane/releases/tag/v0.9.4'
+        ).to eq 'https://github.com/yandod/candycane/releases/tag/v2.1.0'
       end
     end
   end
