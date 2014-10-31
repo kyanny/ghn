@@ -67,11 +67,9 @@ class Ghn
 
   class ReleaseNotification < Notification
     def url
-      "https://github.com/#{repo_full_name}/releases/tag/#{tag}"
-    end
-
-    def tag
-      notification[:subject][:title].split(" ")[-1]
+      url = notification[:subject][:url]
+      result = JSON.parse(Net::HTTP.get(URI.parse(url)))
+      result['html_url']
     end
   end
 
