@@ -15,6 +15,7 @@ class Ghn
       repo_full_name = aliases.find(name) || name
       collect(repo_full_name).each do |url|
         system "#{open_command} #{url}"
+        sleep 0.5 # prevent `LSOpenURLsWithRole() failed with error` on Mac OSX Yosemite
       end
     end
 
