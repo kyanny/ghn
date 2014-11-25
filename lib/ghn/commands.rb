@@ -3,6 +3,7 @@ class Ghn
     class_option :all, type: :boolean, aliases: '-a', desc: 'List/Open all unread notifications'
     class_option :participating, type: :boolean, aliases: '-p', desc: 'List/Open notifications your are participating'
     class_option :follow_issuecomment, type: :boolean, desc: 'Follow issuecomment anchor URL'
+    class_option :verbose, type: :boolean, aliases: '-v', desc: 'Verbose message'
 
     desc 'list NAME', 'List unread notifications'
     def list(name = nil)
@@ -14,6 +15,7 @@ class Ghn
     def open(name = nil)
       repo_full_name = aliases.find(name) || name
       collect(repo_full_name).each do |url|
+        puts "Opening.. #{url}" if options["verbose"]
         system "#{open_command} #{url}"
         sleep 0.5 # prevent `LSOpenURLsWithRole() failed with error` on Mac OSX Yosemite
       end
