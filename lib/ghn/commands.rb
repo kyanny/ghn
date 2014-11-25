@@ -82,7 +82,7 @@ MESSAGE
       @open_command ||=
         case RbConfig::CONFIG['host_os']
         when /darwin/
-          'open'
+          'open --background'
         when /linux|bsd/
           'xdg-open'
         when /mswin|mingw|cygwin/
