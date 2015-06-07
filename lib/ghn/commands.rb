@@ -3,6 +3,7 @@ class Ghn
     class_option :all, type: :boolean, aliases: '-a', desc: 'List/Open all unread notifications'
     class_option :participating, type: :boolean, aliases: '-p', desc: 'List/Open notifications your are participating'
     class_option :follow_issuecomment, type: :boolean, desc: 'Follow issuecomment anchor URL'
+    class_option :sort, type: :boolean, aliases: '-s', desc: 'Sort notifications by URL'
     class_option :verbose, type: :boolean, aliases: '-v', desc: 'Verbose message'
 
     desc 'list NAME', 'List unread notifications'
@@ -34,6 +35,7 @@ class Ghn
         break unless collector.has_next?
       end
 
+      threads.sort! if options['sort']
       threads
     end
 
