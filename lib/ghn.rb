@@ -1,3 +1,4 @@
+require 'json'
 require 'octokit'
 require 'ghn/version'
 require 'ghn/aliases'
