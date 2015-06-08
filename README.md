@@ -23,6 +23,7 @@ Options:
   -a, [--all], [--no-all]                                  # List/Open all unread notifications
   -p, [--participating], [--no-participating]              # List/Open notifications your are participating
       [--follow-issuecomment], [--no-follow-issuecomment]  # Follow issuecomment anchor URL
+  -s, [--sort], [--no-sort]                                # Sort notifications by url
 ```
 
 NAME should be a username/reponame of repository.
@@ -34,6 +35,8 @@ NAME should be a username/reponame of repository.
 `$ ghn open -a` opens all unread notifications in your browser.
 
 `$ ghn open -p` opens notifications your are participating only.
+
+`$ ghn open -s` opens notifications sorted by url.
 
 ## Aliases
 
