@@ -4,6 +4,7 @@ class Ghn
     class_option :participating, type: :boolean, aliases: '-p', desc: 'List/Open notifications your are participating'
     class_option :follow_issuecomment, type: :boolean, desc: 'Follow issuecomment anchor URL'
     class_option :sort, type: :boolean, aliases: '-s', desc: 'Sort notifications by URL'
+    class_option :limit, type: :numeric, aliases: '-n', desc: 'Limit N issues'
     class_option :verbose, type: :boolean, aliases: '-v', desc: 'Verbose message'
 
     desc 'list NAME', 'List unread notifications'
@@ -36,6 +37,7 @@ class Ghn
       end
 
       threads.sort! if options['sort']
+      threads = threads[0, options['limit']] if options['limit']
       threads
     end
 
