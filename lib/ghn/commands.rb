@@ -35,7 +35,14 @@ class Ghn
         break unless collector.has_next?
       end
 
-      threads.sort! if options['sort']
+      if options['sort']
+        regexp = /^(.*\/)([0-9]+)/
+        threads.sort! do |a, b|
+          _, repo_a, number_a = regexp.match(a).to_a
+          _, repo_b, number_b = regexp.match(b).to_a
+          (repo_a <=> repo_b).nonzero? || (number_a.to_i <=> number_b.to_i)
+        end
+      end
       threads
     end
 
